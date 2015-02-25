@@ -1,10 +1,10 @@
 #!/bin/bash
-cd /ansible-pyenv
+cd /ansible-rbenv
 
 cat <<EOF > ansible.cfg
 [defaults]
 roles_path = ../
 EOF
 
-/opt/ansible/ansible/bin/ansible-playbook /ansible-pyenv/tests/test.yml -i /ansible-pyenv/tests/inventory -c local --skip-tags "python check"
+/opt/ansible/ansible/bin/ansible-playbook /ansible-rbenv/tests/test.yml -i /ansible-rbenv/tests/inventory -c local --skip-tags "ruby check"
 
