@@ -1,8 +1,8 @@
 - hosts: all
   vars:
-    ANSIBLE_PYENV_PYENV_USER: root
-    ANSIBLE_PYENV_PYENV_USER_HOME: /root
-    ANSIBLE_PYENV_PYTHON_VERSION: 2.7.9
+    ANSIBLE_RBENV_RBENV_USER: root
+    ANSIBLE_RBENV_RBENV_USER_HOME: /root
+    ANSIBLE_RBENV_RBENV_VERSION: 2.2.2
   roles:
-    - ansible-pyenv 
+    - ansible-rbenv
 
