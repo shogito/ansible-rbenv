@@ -1,84 +1,83 @@
 - include: prereq-RedHat.yml
   when: ansible_os_family == 'RedHat'
   tags:
-      - pyenv
+      - rbenv
       - redhat
 
 - include: prereq-Debian.yml
   when: ansible_os_family == 'Debian'
   tags:
-      - pyenv
+      - rbenv
       - debian
 
-- name: clone pyenv
-  git: repo=git://github.com/yyuu/pyenv.git dest={{ ANSIBLE_PYENV_PYENV_USER_HOME }}/.pyenv accept_hostkey=yes
-  sudo_user: "{{ ANSIBLE_PYENV_PYENV_USER }}"
+- name: clone rbenv
+  git: repo=https://github.com/sstephenson/rbenv.git dest={{ ANSIBLE_RBENV_RBENV_USER_HOME }}/.rbenv accept_hostkey=yes 
+  sudo_user: "{{ ANSIBLE_RBENV_RBENV_USER }}"
   tags:
-      - pyenv
+      - rbenv
+
+- name: clone ruby-build
+  git: repo=https://github.com/sstephenson/ruby-build.git dest={{ ANSIBLE_RBENV_RBENV_USER_HOME }}/.rbenv/plugins/ruby-build accept_hostkey=yes
+  sudo_user: "{{ ANSIBLE_RBENV_RBENV_USER }}"
+
 
 - name: create environ dir
-  file: path={{ ANSIBLE_PYENV_PYENV_USER_HOME }}/profile.d state=directory mode=0755
-  sudo_user: "{{ ANSIBLE_PYENV_PYENV_USER }}"
+  file: path={{ ANSIBLE_RBENV_RBENV_USER_HOME }}/profile.d state=directory mode=0755
+  sudo_user: "{{ ANSIBLE_RBENV_RBENV_USER }}"
   tags:
-      - pyenv
+      - rbenv
 
 - name: add environ scrip
-  copy: src=../files/pyenv.sh dest={{ ANSIBLE_PYENV_PYENV_USER_HOME }}/profile.d/ mode=0755
-  sudo_user: "{{ ANSIBLE_PYENV_PYENV_USER }}"
+  copy: src=../files/rbenv.sh dest={{ ANSIBLE_RBENV_RBENV_USER_HOME }}/profile.d/ mode=0755
+  sudo_user: "{{ ANSIBLE_RBENV_RBENV_USER }}"
   tags:
-      - pyenv
+      - rbenv
 
 - name: check bash
   shell: "[ -x $(which bash) ] && echo 'Found' || echo ''"
   register: executable_bash
   changed_when: false 
   tags:
-      - pyenv
+      - rbenv
 
 - name: add bash environ
   include: bash-env.yml
   when: executable_bash.stdout
   tags:
-      - pyenv
+      - rbenv
 
 - name: check zsh
   shell: "[ -x $(which zsh) ] && echo 'Found' || echo ''"
   register: executable_zsh
   changed_when: false 
   tags:
-      - pyenv
+      - rbenv
 
 - name: add zsh environ
   include: zsh-env.yml
   when: executable_zsh.stdout
   tags:
-      - pyenv
+      - rbenv
 
-- name: python install
-  shell: "echo y | '{{ ANSIBLE_PYENV_PYENV_USER_HOME }}'/.pyenv/bin/pyenv install {{ ANSIBLE_PYENV_PYTHON_VERSION }}"
-  sudo_user: "{{ ANSIBLE_PYENV_PYENV_USER }}"
+- name: ruby install
+  shell: "echo y | '{{ ANSIBLE_RBENV_RBENV_USER_HOME }}'/.rbenv/bin/rbenv install {{ ANSIBLE_RBENV_RUBY_VERSION }}"
+  sudo_user: "{{ ANSIBLE_RBENV_RBENV_USER }}"
   changed_when: false 
-  always_run: yes
   tags:
-      - pyenv
-      - python install
+      - rbenv
+      - ruby install
   
-- name: python global 
-  shell: "'{{ ANSIBLE_PYENV_PYENV_USER_HOME }}'/.pyenv/bin/pyenv global {{ ANSIBLE_PYENV_PYTHON_VERSION }}"
-  sudo_user: "{{ ANSIBLE_PYENV_PYENV_USER }}"
+- name: ruby global 
+  shell: "'{{ ANSIBLE_RBENV_RBENV_USER_HOME }}'/.rbenv/bin/rbenv global {{ ANSIBLE_RBENV_RUBY_VERSION }}"
+  sudo_user: "{{ ANSIBLE_RBENV_RBENV_USER }}"
   changed_when: false 
-  always_run: yes
   tags:
-      - pyenv
-      - python global
+      - rbenv
+      - ruby global
 
-- name: clone pyenv-virtualenv
-  git: repo=git://github.com/yyuu/pyenv-virtualenv.git dest={{ ANSIBLE_PYENV_PYENV_USER_HOME }}/.pyenv/plugins/pyenv-virtualenva accept_hostkey=yes
-  sudo_user: "{{ ANSIBLE_PYENV_PYENV_USER }}"
-
-- name: python version check
-  shell: "su - root -c 'python -V 2>&1 | grep -F \"{{ ANSIBLE_PYENV_PYTHON_VERSION }}\"'" 
+- name: ruby version check
+  shell: "su - root -c 'ruby -V 2>&1 | grep -F \"{{ ANSIBLE_RBENV_RUBY_VERSION }}\"'" 
   changed_when: false
   tags:
-      - pyenv
-      - python check 
+      - rbenv
+      - ruby check 

@@ -10,9 +10,6 @@
 - name: Install developmentパッケージ
   apt: pkg="{{ item }}" state=present
   with_items:
-    - libssl-dev
-    - libbz2-dev
-    - libsqlite3-dev
-    - libreadline-dev
-    - python-dev
-
+    - libc-ares2
+    - libev4
+    - libv8-3.8.9.20

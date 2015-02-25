@@ -1,33 +1,33 @@
 # Ansible Role: ansible-pyenv
 
-[![Build Status](https://travis-ci.org/shogito/ansible-pyenv.svg?branch=master)](https://travis-ci.org/shogito/ansible-pyenv)
-[![wercker status](https://app.wercker.com/status/4e08a3a5894734f295ad5a1c242951dc/m "wercker status")](https://app.wercker.com/project/bykey/4e08a3a5894734f295ad5a1c242951dc)
+[Build Status]
+[wercker status]
 ### 要求
 none
 
 ### Role Variables
-pyenvをインストールするユーザ
+rbenvをインストールするユーザ
 ```
-ANSIBLE_PYENV_PYENV_USER
+ANSIBLE_RBENV_RBENV_USER
 ```
-pyenvをインストールするロケーション
+rbenvをインストールするロケーション
 ```
-ANSIBLE_PYENV_PYTENV_USER_HOME
+ANSIBLE_RBENV_RBENV_USER_HOME
 ```
-pyenvでインストールするPython Version
+rbenvでインストールするRuby Version
 ```
-ANSIBLE_PYENV_PYTHON_VERSION
+ANSIBLE_RBENV_RUBY_VERSION
 ```
 
 ### Example Playbook
 ```
 - hosts: all
   vars:
-    ANSIBLE_PYENV_PYENV_USER: root
-    ANSIBLE_PYENV_PYENV_USER_HOME: /root 
-    ANSIBLE_PYENV_PYTHON_VERSION: 2.7.9
+    ANSIBLE_RBENV_RBENV_USER: root
+    ANSIBLE_RBENV_RBENV_USER_HOME: /root 
+    ANSIBLE_RBENV_RUBY_VERSION: 2.7.9
   roles:
-    - { role: shogito.pyenv }
+    - { role: shogito.rbenv }
 ```
 
 ### License
