@@ -16,31 +16,31 @@ build:
 
     - script:
         name: run docker container
-        code: docker run -v `pwd`:/ansible-pyenv -i -d --name=centos_ansible ansible/centos7-ansible /bin/bash
+        code: docker run -v `pwd`:/ansible-rbenv -i -d --name=centos_ansible ansible/centos7-ansible /bin/bash
 
     - script:
         name: run system test
         code: |
-          echo /ansible-pyenv/tests/ansible-test.sh | /usr/local/bin/docker-enter centos_ansible
+          echo /ansible-rbenv/tests/ansible-test.sh | /usr/local/bin/docker-enter centos_ansible
    
     - script:
         name: run idempotent test 
         code: |
-          echo /ansible-pyenv/tests/ansible-idempotent-test.sh | /usr/local/bin/docker-enter centos_ansible
+          echo /ansible-rbenv/tests/ansible-idempotent-test.sh | /usr/local/bin/docker-enter centos_ansible
 
     - script:
         name: run docker container
-        code: docker run -v `pwd`:/ansible-pyenv -i -d --name=ubuntu_ansible ansible/ubuntu14.04-ansible /bin/bash
+        code: docker run -v `pwd`:/ansible-rbenv -i -d --name=ubuntu_ansible ansible/ubuntu14.04-ansible /bin/bash
 
     - script:
         name: run system test
         code: |
-          echo /ansible-pyenv/tests/ansible-test.sh | /usr/local/bin/docker-enter ubuntu_ansible
+          echo /ansible-rbenv/tests/ansible-test.sh | /usr/local/bin/docker-enter ubuntu_ansible
  
     - script:
         name: run idempotent test
         code: |
-          echo /ansible-pyenv/tests/ansible-idempotent-test.sh | /usr/local/bin/docker-enter ubuntu_ansible
+          echo /ansible-rbenv/tests/ansible-idempotent-test.sh | /usr/local/bin/docker-enter ubuntu_ansible
 
   after-steps:
     - wantedly/pretty-slack-notify:
