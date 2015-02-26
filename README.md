@@ -1,4 +1,4 @@
-# Ansible Role: ansible-pyenv
+# Ansible Role: ansible-rbenv
 
 [Build Status]
 [wercker status]
