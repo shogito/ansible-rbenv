@@ -60,7 +60,7 @@
       - rbenv
 
 - name: ruby install
-  shell: "echo y | '{{ ANSIBLE_RBENV_RBENV_USER_HOME }}'/.rbenv/bin/rbenv install {{ ANSIBLE_RBENV_RUBY_VERSION }}"
+  shell: "echo y | {{ ANSIBLE_RBENV_RBENV_USER_HOME }}/.rbenv/bin/rbenv install {{ ANSIBLE_RBENV_RUBY_VERSION }}"
   sudo_user: "{{ ANSIBLE_RBENV_RBENV_USER }}"
   changed_when: false 
   tags:
