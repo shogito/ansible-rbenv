@@ -25,7 +25,7 @@ ANSIBLE_RBENV_RUBY_VERSION
   vars:
     ANSIBLE_RBENV_RBENV_USER: root
     ANSIBLE_RBENV_RBENV_USER_HOME: /root 
-    ANSIBLE_RBENV_RUBY_VERSION: 2.7.9
+    ANSIBLE_RBENV_RUBY_VERSION: 2.2.0
   roles:
     - { role: shogito.rbenv }
 ```
