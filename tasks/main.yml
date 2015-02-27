@@ -76,7 +76,7 @@
       - ruby global
 
 - name: ruby version check
-  shell: "su - root -c 'ruby -V 2>&1 | grep -F \"{{ ANSIBLE_RBENV_RUBY_VERSION }}\"'" 
+  shell: "su - root -c 'ruby --version 2>&1 | grep -F \"{{ ANSIBLE_RBENV_RUBY_VERSION }}\"'" 
   changed_when: false
   tags:
       - rbenv
